@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Faq } from 'src/faq/faq.entity';
 import axios from 'axios';
-const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
+// const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
 @Injectable()
 export class ChatService {
   constructor(
@@ -60,10 +60,9 @@ User asked: ${userMessage}
           stream: false, // return full text
         },
         {
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${OLLAMA_API_KEY}` },
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.OLLAMA_API_KEY}` },
         }
       );
-
       // The response may be nested; adjust based on your Ollama version
       const aiReply = response.data?.output || response.data?.response || matchedFaq.answer_en;
 
