@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FAQs</title>
+</head>
+<body>
+  <h1>FAQs</h1>
+
+  <h2>Add FAQ</h2>
+  <form action="/faqs" method="POST">
+    <input type="text" name="category" placeholder="Category" required><br>
+    <input type="text" name="keywords" placeholder="Keywords (comma separated)" required><br>
+    <textarea name="answer_en" placeholder="Answer" required></textarea><br>
+    <button type="submit">Add FAQ</button>
+  </form>
+
+  <h2>Existing FAQs</h2>
+  <ul>
+    <% faqs.forEach(faq => { %>
+      <li>
+        <strong><%= faq.category %></strong> - <%= faq.answer_en %> 
+        <br>Keywords: <%= faq.keywords.join(', ') %> 
+        <br>
+        <a href="/faqs/edit/<%= faq._id %>">Edit</a> | 
+        <a href="/faqs/delete/<%= faq._id %>">Delete</a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

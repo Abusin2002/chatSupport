@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FAQs</title>
+  <style>
+    /* -------------------- RESET & GLOBAL -------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f4f9ff 0%, #e3ecf5 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      color: #1e3347;
+    }
+
+    /* main container — soft, floating, glassy (preserves exact body content) */
+    body > * {
+      max-width: 880px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ----- TITLES (elegant & refined) ----- */
+    h1 {
+      font-size: 3rem;
+      font-weight: 480;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #254c6b, #1e405b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid rgba(255,255,255,0.5);
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 460;
+      color: #1f4a64;
+      margin: 2.5rem 0 1.5rem 0;
+      padding-left: 1rem;
+      border-left: 6px solid #a7c5df;
+    }
+
+    h2:first-of-type {
+      margin-top: 1rem;
+    }
+
+    /* ----- ADD FAQ FORM (card with soft backdrop) ----- */
+    form {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 38px;
+      padding: 2.2rem 2.5rem 2.5rem 2.5rem;
+      box-shadow: 0 25px 40px -24px rgba(14, 45, 70, 0.25);
+      margin: 1rem 0 2rem 0;
+    }
+
+    /* inputs & textarea — clean, modern, floating */
+    input, textarea {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(190, 210, 230, 0.6);
+      border-radius: 56px;
+      padding: 16px 26px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #152d40;
+      outline: none;
+      width: 100%;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    textarea {
+      border-radius: 28px;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #799bb9;
+      font-weight: 350;
+      font-style: italic;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #aac4df;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 0 5px rgba(160, 200, 240, 0.2);
+    }
+
+    /* send button — glassy, premium */
+    button[type="submit"] {
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 60px;
+      padding: 16px 38px;
+      font-size: 1.1rem;
+      font-weight: 560;
+      color: #1a4f70;
+      letter-spacing: 0.4px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 24px -18px #103c58, 0 0 0 1px rgba(255,255,255,1) inset;
+      cursor: pointer;
+      transition: 0.18s ease;
+      border: 1px solid rgba(255,255,255,0.9);
+      width: fit-content;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"]:hover {
+      background: white;
+      box-shadow: 0 20px 30px -18px #1b5077, 0 0 0 1px rgba(220, 235, 250, 1) inset;
+      color: #0f3d5e;
+      transform: scale(1.02);
+    }
+
+    button[type="submit"]:active {
+      transform: scale(0.98);
+    }
+
+    /* preserve <br> spacing but we style around them */
+    form br {
+      display: none;  /* hide line breaks, we use margin on inputs */
+    }
+
+    /* ----- EXISTING FAQS (elegant list) ----- */
+    ul {
+      list-style: none;
+      margin: 2rem 0 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    li {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 32px;
+      padding: 2rem 2.2rem;
+      box-shadow: 0 10px 22px -16px #1f4b6b;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    li:hover {
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 16px 28px -20px #28638a;
+    }
+
+    /* category styling */
+    li strong {
+      font-size: 1.7rem;
+      font-weight: 540;
+      color: #18435f;
+      display: inline;
+    }
+
+    /* answer text (the one after category) */
+    li > strong + span, li > strong + span + span {
+      font-size: 1.2rem;
+      color: #1f4b63;
+      line-height: 1.5;
+      margin-left: 0.2rem;
+    }
+
+    /* keywords line — pill background */
+    li > span:last-of-type, li > br + span {
+      font-size: 1rem;
+      color: #326180;
+      background: rgba(210, 230, 250, 0.4);
+      padding: 8px 20px;
+      border-radius: 40px;
+      display: inline-block;
+      width: fit-content;
+      margin: 0.7rem 0 1rem 0;
+      border: 1px solid rgba(160,200,235,0.3);
+      backdrop-filter: blur(2px);
+    }
+
+    /* edit & delete links */
+    a {
+      text-decoration: none;
+      font-weight: 540;
+      padding: 8px 24px;
+      border-radius: 60px;
+      background: rgba(245, 250, 255, 0.8);
+      border: 1px solid rgba(255,255,255,0.9);
+      backdrop-filter: blur(4px);
+      color: #1a5f88;
+      margin-right: 14px;
+      transition: 0.12s;
+      font-size: 0.95rem;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    a:hover {
+      background: white;
+      border-color: #b6d6f2;
+      color: #0c4365;
+      box-shadow: 0 10px 18px -14px #1a5880;
+    }
+
+    /* keep the '|' separator but make it very subtle */
+    li a + a {
+      margin-left: 0.2rem;
+    }
+
+    li a + a::before {
+      content: "·";
+      margin-right: 14px;
+      color: #9db9d4;
+      font-weight: 400;
+      font-size: 1.4rem;
+      vertical-align: middle;
+    }
+
+    /* preserve EJS tags exactly, style works around them */
+    /* responsive */
+    @media (max-width: 700px) {
+      body { padding: 1.8rem 1rem; }
+      h1 { font-size: 2.4rem; }
+      h2 { font-size: 1.7rem; }
+      form { padding: 1.8rem; }
+      li { padding: 1.5rem; }
+    }
+
+    /* small glow for better readability */
+    ul, form {
+      animation: fadeUp 0.2s ease;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0.96; transform: translateY(4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>FAQs</h1>
+
+  <h2>Add FAQ</h2>
+  <form action="/faqs" method="POST">
+    <input type="text" name="category" placeholder="Category" required><br>
+    <input type="text" name="keywords" placeholder="Keywords (comma separated)" required><br>
+    <textarea name="answer_en" placeholder="Answer" required></textarea><br>
+    <button type="submit">Add FAQ</button>
+  </form>
+
+  <h2>Existing FAQs</h2>
+  <ul>
+    <% faqs.forEach(faq => { %>
+      <li>
+        <strong><%= faq.category %></strong> - <%= faq.answer_en %> 
+        <br>Keywords: <%= faq.keywords.join(', ') %> 
+        <br>
+        <a href="/faqs/edit/<%= faq._id %>">Edit</a> | 
+        <a href="/faqs/delete/<%= faq._id %>">Delete</a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

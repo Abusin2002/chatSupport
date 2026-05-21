@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Support · elegent theme</title>
+  <style>
+    /* ----------------------------------------------
+       RESET / BASE — minimal, elegant, airy 
+    ----------------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f1f4f9 0%, #e7ecf3 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+    }
+
+    /* main chat card — soft white, rounded, subtle depth */
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 470;
+      letter-spacing: -0.02em;
+      color: #1e2f40;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 0.8rem 2.4rem;
+      border-radius: 120px;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 10px 24px -12px rgba(0,30,50,0.2);
+      border: 1px solid rgba(255,255,255,0.7);
+      display: inline-block;
+    }
+
+    /* chat container — elegant glass panel */
+    #chatbox {
+      width: 640px;
+      max-width: 90vw;
+      height: 380px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 32px;
+      padding: 1.8rem 1.8rem 1.5rem 1.8rem;
+      overflow-y: auto;
+      box-shadow: 
+        0 20px 40px -14px rgba(10, 30, 50, 0.25),
+        inset 0 1px 2px rgba(255,255,255,0.8);
+      margin-bottom: 1.6rem;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* custom scrollbar — subtle, fits theme */
+    #chatbox::-webkit-scrollbar {
+      width: 6px;
+    }
+    #chatbox::-webkit-scrollbar-track {
+      background: rgba(190, 206, 220, 0.16);
+      border-radius: 20px;
+      margin-block: 12px;
+    }
+    #chatbox::-webkit-scrollbar-thumb {
+      background: rgba(90, 126, 155, 0.35);
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* message bubble — shared style */
+    .message {
+      max-width: 78%;
+      padding: 14px 22px;
+      border-radius: 28px;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 420;
+      word-break: break-word;
+      box-shadow: 0 8px 16px -10px rgba(0,32,64,0.15);
+      border: 1px solid rgba(255,255,255,0.6);
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* user message — right aligned, soft blue */
+    .user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #ddeeff, #d2e5ff);
+      color: #113946;
+      border-bottom-right-radius: 12px;
+      border: 1px solid rgba(70, 130, 200, 0.25);
+      box-shadow: 0 8px 16px -12px #2c577e;
+    }
+
+    /* bot message — left aligned, soft mint */
+    .bot {
+      align-self: flex-start;
+      background: rgba(245, 255, 245, 0.85);
+      backdrop-filter: blur(4px);
+      color: #1b4133;
+      border-bottom-left-radius: 12px;
+      border: 1px solid rgba(130, 180, 140, 0.3);
+      box-shadow: 0 8px 16px -12px #2f6b4a;
+    }
+
+    /* form — modern, attached, pill style */
+    #chatForm {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 640px;
+      max-width: 90vw;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 120px;
+      padding: 6px 6px 6px 24px;
+      box-shadow: 0 12px 32px -18px #1f3e5a;
+    }
+
+    /* input — clean, no outline, elegant placeholder */
+    #message {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 16px 8px 16px 0;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #172b39;
+      caret-color: #3b7fb0;
+    }
+
+    #message::placeholder {
+      color: #7f99b3;
+      font-weight: 350;
+      letter-spacing: -0.2px;
+      font-style: italic;
+    }
+
+    #message:focus {
+      outline: none;
+    }
+
+    /* send button — sleek, translucent, hover effect */
+    button {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 60px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 520;
+      color: #1e4c6b;
+      letter-spacing: 0.4px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 18px -14px #153e5a, 0 0 0 1px rgba(255,255,255,1) inset;
+      cursor: pointer;
+      transition: 0.18s ease;
+      border: 1px solid rgba(255,255,255,0.9);
+    }
+
+    button:hover {
+      background: white;
+      box-shadow: 0 16px 26px -16px #1b4b70, 0 0 0 1px rgba(235, 245, 255, 1) inset;
+      color: #0b3857;
+      transform: scale(1.02);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* optional label inside bubbles (preserve original text, but style looks better with sender hint)
+       we are NOT changing code – so we keep original 'You:' and 'bot reply' but we can add a micro style 
+       to make them slightly elevated. Original structure stays intact.
+       but we can style the .user and .bot text itself (color already changed) */
+
+    /* adapt for smaller screens */
+    @media (max-width: 700px) {
+      #chatbox { width: 90vw; }
+      #chatForm { width: 90vw; }
+      h1 { font-size: 1.8rem; padding: 0.6rem 1.8rem; }
+      .message { max-width: 85%; }
+    }
+
+    /* extra subtle: the "You:" and bot prefix can be slightly muted, but we keep original content */
+    .user::first-line, .bot::first-line {
+      font-weight: 520;
+    }
+
+    /* but we don't change html, so that's it – just a polished background and refined elements */
+    /* also center the title and add a tiny glow */
+    body {
+      text-align: center;
+    }
+
+    /* small detail: the whole page feels cohesive, no overflow issues */
+  </style>
+</head>
+<body>
+  <h1>Chat Support</h1>
+  <div id="chatbox"></div>
+  <form id="chatForm">
+    <input type="text" id="message" placeholder="Type your message" required />
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('chatForm');
+    const chatbox = document.getElementById('chatbox');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const message = document.getElementById('message').value;
+      if (!message) return;
+
+      // Display user message
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('message', 'user');
+      userMsg.textContent = `You: ${message}`;
+      chatbox.appendChild(userMsg);
+
+      // Send to backend
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+      const data = await res.json();
+
+      // Display bot reply
+      const botMsg = document.createElement('div');
+      botMsg.classList.add('message', 'bot');
+      botMsg.textContent = data.reply;
+      chatbox.appendChild(botMsg);
+
+      document.getElementById('message').value = '';
+      chatbox.scrollTop = chatbox.scrollHeight;
+    });
+  </script>
+</body>
+</html>
